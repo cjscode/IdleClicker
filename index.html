@@ -382,15 +382,15 @@
         if (number < 1000) {
             return number
         } else if (number < 1000000) {
-            return Math.floor(number/100)/10 + "k"
+            return Math.floor(number/10)/100 + "k"
         } else if (number < 1000000000) {
-            return Math.floor(number/100000)/10 + "M"
+            return Math.floor(number/10000)/100 + "M"
         } else if (number < 1000000000000) {
-            return Math.floor(number/100000000)/10 + "B"
+            return Math.floor(number/10000000)/100 + "B"
         } else if (number < 1000000000000000) {
-            return Math.floor(number/100000000000)/10 + "T"
+            return Math.floor(number/10000000000)/100 + "T"
         } else {
-            return Math.floor(number/100000000000000)/10 + "Q"
+            return Math.floor(number/10000000000000)/100 + "Q"
         }
     }
     //run game
