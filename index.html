@@ -349,7 +349,7 @@
         let sepstrings = []
         for (let index = 0; index <= gamecode.length; index++) {
             if (gamecode.charAt(index) == ";") {
-                sepstrings.push(sepstring)
+                sepstrings.push(parseFloat(sepstring))
                 sepstring = ""
                 index += 1
             }
