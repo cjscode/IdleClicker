@@ -184,7 +184,7 @@
     if (!(lastOnline >= 0)) {
         lastOnline = Math.round(date.getTime()/1000)
     } else {
-        alert("While you were gone, you made $"+(Math.round(date.getTime()/1000) - lastOnline)*(((1*shopAmount2) * currentMult)+((15*shopAmount3) * currentMult)+((160*shopAmount4) * currentMult)+((1750*shopAmount5) * currentMult))+" over "+(Math.round(date.getTime()/1000) - lastOnline)+" seconds.")
+        alert("While you were gone, you made $"+getshorternumber((Math.round(date.getTime()/1000) - lastOnline)*(((1*shopAmount2) * currentMult)+((15*shopAmount3) * currentMult)+((160*shopAmount4) * currentMult)+((1750*shopAmount5) * currentMult)))+" over "+(Math.round(date.getTime()/1000) - lastOnline)+" seconds.")
     }
     let totalClicks = parseInt(localStorage.getItem("TotalClicksStorage"))
     if (!(totalClicks >= 0)) {
@@ -322,17 +322,17 @@
     
     //game loop
     function loop () {
-        document.getElementById("moneytext").innerHTML = "Money: $"+money+" ("+(((1*shopAmount2)+(15*shopAmount3)+(160*shopAmount4)+(1750*shopAmount5)) * currentMult)+"/s)"
-        document.getElementById("mpc").innerHTML = "$"+shopPrice1
-        document.getElementById("ac1").innerHTML = "$"+shopPrice2
-        document.getElementById("ac2").innerHTML = "$"+shopPrice3
-        document.getElementById("ac3").innerHTML = "$"+shopPrice4
-        document.getElementById("ac4").innerHTML = "$"+shopPrice5
+        document.getElementById("moneytext").innerHTML = "Money: $"+getshorternumber(money)+" ("+getshorternumber((((1*shopAmount2)+(15*shopAmount3)+(160*shopAmount4)+(1750*shopAmount5)) * currentMult))+"/s)"
+        document.getElementById("mpc").innerHTML = "$"+getshorternumber(shopPrice1)
+        document.getElementById("ac1").innerHTML = "$"+getshorternumber(shopPrice2)
+        document.getElementById("ac2").innerHTML = "$"+getshorternumber(shopPrice3)
+        document.getElementById("ac3").innerHTML = "$"+getshorternumber(shopPrice4)
+        document.getElementById("ac4").innerHTML = "$"+getshorternumber(shopPrice5)
         document.getElementById("currentcursortext").innerHTML = currentCursor
-        document.getElementById("clickstext").innerHTML = totalClicks
-        document.getElementById("moneymadetext").innerHTML = totalMoney
+        document.getElementById("clickstext").innerHTML = getshorternumber(totalClicks)
+        document.getElementById("moneymadetext").innerHTML = getshorternumber(totalMoney)
         if (!(currentCursor === 11)) {
-            document.getElementById("ncursor").innerHTML = "$"+nextCursorCost
+            document.getElementById("ncursor").innerHTML = "$"+getshorternumber(nextCursorCost)
         } else {
             document.getElementById("ncursor").innerHTML = "MAX"
         }
@@ -375,6 +375,22 @@
             currentMult = sepstrings[14]
             savegame()
             location.reload()
+        }
+    }
+    //shorten number
+    function getshorternumber (number) {
+        if (number < 1000) {
+            return number
+        } else if (number < 1000000) {
+            return Math.floor(number/100)/10 + "k"
+        } else if (number < 1000000000) {
+            return Math.floor(number/100000)/10 + "M"
+        } else if (number < 1000000000000) {
+            return Math.floor(number/100000000)/10 + "B"
+        } else if (number < 1000000000000000) {
+            return Math.floor(number/100000000000)/10 + "T"
+        } else {
+            return Math.floor(number/100000000000000)/10 + "Q"
         }
     }
     //run game
