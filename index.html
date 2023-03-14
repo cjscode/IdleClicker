@@ -277,7 +277,7 @@
 
     //advances to the next cursor
     function nextcursor () {
-        if (money >= nextCursorCost && !(currentCursor === 11)) {
+        if (money >= nextCursorCost && !(currentCursor === 13)) {
             money = 0
             currentCursor += 1
             nextCursorCost *= 1.9
@@ -331,7 +331,7 @@
         document.getElementById("currentcursortext").innerHTML = currentCursor
         document.getElementById("clickstext").innerHTML = getshorternumber(totalClicks)
         document.getElementById("moneymadetext").innerHTML = getshorternumber(totalMoney)
-        if (!(currentCursor === 11)) {
+        if (!(currentCursor === 13)) {
             document.getElementById("ncursor").innerHTML = "$"+getshorternumber(nextCursorCost)
         } else {
             document.getElementById("ncursor").innerHTML = "MAX"
