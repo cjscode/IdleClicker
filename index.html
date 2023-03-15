@@ -119,6 +119,11 @@
     </div>
     <script>
     //setup and load game
+    const starttime = new Date()
+    let prevtime = 0
+    let time = new Date()
+    let timer = 0
+    let fps = 1
     let money = parseInt(localStorage.getItem("MoneyStorage"))
     if (!(money >= 0)) {
         money = 0
@@ -262,17 +267,16 @@
     }
 
     //runs autominers and autosaves
-    setInterval(automine, 1000)
+    setInterval(savegame, 500)
     function automine () {
-        money += (1*shopAmount2) * currentMult
-        totalMoney += (1*shopAmount2) * currentMult
-        money += (15*shopAmount3) * currentMult
-        totalMoney += (15*shopAmount2) * currentMult
-        money += (160*shopAmount4) * currentMult
-        totalMoney += (160*shopAmount2) * currentMult
-        money += (1750*shopAmount5) * currentMult
-        totalMoney += (1750*shopAmount2) * currentMult
-        savegame()
+        money += ((1*shopAmount2) * currentMult)/fps
+        totalMoney += ((1*shopAmount2) * currentMult)/fps
+        money += ((15*shopAmount3) * currentMult)/fps
+        totalMoney += ((15*shopAmount2) * currentMult)/fps
+        money += ((160*shopAmount4) * currentMult)/fps
+        totalMoney += ((160*shopAmount2) * currentMult)/fps
+        money += ((1750*shopAmount5) * currentMult)/fps
+        totalMoney += ((1750*shopAmount2) * currentMult)/fps
     }
 
     //advances to the next cursor
@@ -322,6 +326,7 @@
     
     //game loop
     function loop () {
+        updatefpsone()
         document.getElementById("moneytext").innerHTML = "Money: $"+getshorternumber(money)+" ("+getshorternumber((((1*shopAmount2)+(15*shopAmount3)+(160*shopAmount4)+(1750*shopAmount5)) * currentMult))+"/s)"
         document.getElementById("mpc").innerHTML = "$"+getshorternumber(shopPrice1)
         document.getElementById("ac1").innerHTML = "$"+getshorternumber(shopPrice2)
@@ -337,6 +342,8 @@
             document.getElementById("ncursor").innerHTML = "MAX"
         }
         document.getElementById("clickimg").src = "Assets/CursorImg"+currentCursor+".png"
+        updatefpstwo()
+        automine()
         requestAnimationFrame(loop)
     }
     function savegamecode () {
@@ -377,10 +384,18 @@
             location.reload()
         }
     }
+    function updatefpsone () {
+      time = new Date()
+      timer = time.getTime()-starttime
+    }
+    function updatefpstwo () {
+        fps = 60 //1000/(timer-prevtime)
+        prevtime = timer
+    }
     //shorten number
     function getshorternumber (number) {
         if (number < 1000) {
-            return number
+            return Math.floor(number)
         } else if (number < 1000000) {
             return Math.floor(number/10)/100 + "k"
         } else if (number < 1000000000) {
